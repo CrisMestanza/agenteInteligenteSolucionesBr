@@ -7,6 +7,7 @@ API_KEY = os.getenv("apiMonday")
 BOARD_ID = 9523197333
 EMBUDO_COLUMN_ID = "color_mksh498j"
 
+
 def cambiar_estado_embudo(item_id: str, nuevo_estado: str):
     mutation = """
     mutation ($value: JSON!) {
@@ -33,7 +34,9 @@ def cambiar_estado_embudo(item_id: str, nuevo_estado: str):
 
     return response.json()
 
-# Eliminar 
+# Eliminar
+
+
 def eliminar_item(item_id: str):
     mutation = """
     mutation {
@@ -52,6 +55,8 @@ def eliminar_item(item_id: str):
     return response.json()
 
 # Nombre del usuario Lead
+
+
 def obtener_nombre_item(item_id: str):
     query = """
     query {
@@ -70,6 +75,10 @@ def obtener_nombre_item(item_id: str):
 
     data = response.json()
     return data["data"]["items"][0]["name"]
+
+
+
+
 
 # Hacer busqueda por telefono y obtener item ID
 def obtener_item_id_por_telefono(telefono):
@@ -96,13 +105,11 @@ def obtener_item_id_por_telefono(telefono):
         headers={"Authorization": API_KEY}
     )
 
-
     items = response.json()["data"]["boards"][0]["items_page"]["items"]
 
     for item in items:
         for col in item["column_values"]:
             if col["id"] == "phone_mkshh797" and telefono in col["text"]:
                 return item["id"]
-
 
     return None

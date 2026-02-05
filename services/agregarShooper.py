@@ -1,9 +1,22 @@
 import requests
 import json
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
+import os
+
+API_KEYM = os.getenv("apiMonday")
+
+hoy_dt = datetime.now(ZoneInfo("America/Lima")) + timedelta(hours=5)
+
+# formatear al final
+hoy = hoy_dt.strftime("%Y-%m-%d %H:%M:%S")
+
+print(f"Fecha actual en America/Lima: {hoy}")
+
 
 # agregar agenda virtual
 def agregarVirtualShooper(nombre, fecha, telefono):
-    API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjUzMTIxNTk0NywiYWFpIjoxMSwidWlkIjo3NzY2MjM2OSwiaWFkIjoiMjAyNS0wNi0yNVQyMTo1NzoyNS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MzAxMzc2OTEsInJnbiI6InVzZTEifQ.EgxW5NmAM3UAYVhIu7oAzkMwKk03qa_1n5-7TaTB4E0"
+    API_KEY = API_KEYM
     BOARD_ID = 9676101124
     """
     Crea un nuevo item en Monday.com con nombre, fecha y teléfono.
@@ -12,7 +25,10 @@ def agregarVirtualShooper(nombre, fecha, telefono):
     # 🔹 Armar diccionario con columnas
     columnas = {
         "date_mkts5xcj": fecha,      # Columna de fecha (Agenda)
-        "phone_mktbj18p": telefono   # Columna de teléfono
+        "phone_mktbj18p": telefono,   # Columna de teléfono
+        "text_mm00885h": "Sí",   # Columna IA marcada como Sí
+        "date": hoy,
+    
     }
 
     # 🔹 Convertir a JSON escapado (Monday requiere string con comillas escapadas)
