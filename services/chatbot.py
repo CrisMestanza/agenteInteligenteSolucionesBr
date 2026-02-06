@@ -257,11 +257,14 @@ def bot(nombre, mensaje, telefono):
 
         if item_id:
             if tipo_cita == "virtual":
-
-                nombreLead = obtener_nombre_item(item_id)
-                agregarVirtualShooper(nombreLead, fecha_formateada, telefono)
+                print(f"Lead {nombreLead}")
+                resumen = leer_conversacion_del_dia(nombreLead, telefono)
+                print("Resumen de la conversación:", resumen)
+                agregarVirtualShooper(nombreLead, fecha_formateada, telefono, resumen)
                 eliminar_item(item_id)
 
+                
+                
                 # cambiar_estado_embudo(item_id, "Agendo Presentacion")
 
             elif tipo_cita == "presencial":

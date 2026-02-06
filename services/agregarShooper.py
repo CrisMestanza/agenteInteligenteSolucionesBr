@@ -15,12 +15,14 @@ print(f"Fecha actual en America/Lima: {hoy}")
 
 
 # agregar agenda virtual
-def agregarVirtualShooper(nombre, fecha, telefono):
+def agregarVirtualShooper(nombre, fecha, telefono,resumen):
     API_KEY = API_KEYM
     BOARD_ID = 9676101124
     """
     Crea un nuevo item en Monday.com con nombre, fecha y teléfono.
     """
+    resumen = resumen.replace("\n", " ").replace('"', "'")
+
 
     # 🔹 Armar diccionario con columnas
     columnas = {
@@ -28,9 +30,8 @@ def agregarVirtualShooper(nombre, fecha, telefono):
         "phone_mktbj18p": telefono,   # Columna de teléfono
         "text_mm00885h": "Sí",   # Columna IA marcada como Sí
         "date": hoy,
-    
+        "long_text_mm088pzm": resumen
     }
-
     # 🔹 Convertir a JSON escapado (Monday requiere string con comillas escapadas)
     columnas_json = json.dumps(columnas).replace('"', '\\"')
 
